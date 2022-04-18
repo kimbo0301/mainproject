@@ -1,0 +1,139 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type ProductImage {
+  id: String!
+  src: String!
+}
+
+type Ranking {
+  id: String!
+  subject: String!
+}
+
+type Product {
+  id: String!
+  name: String!
+  rank: Float!
+  price: Int!
+  productInfo: [ProductInfo!]!
+  productimage: ProductImage!
+  ranking: Ranking!
+}
+
+type ProductInfo {
+  id: String!
+  name: String!
+  product: [Product!]!
+}
+
+type Category {
+  id: String!
+  name: String!
+}
+
+type Parchase {
+  id: String!
+  price: Int!
+  count: Int!
+  dateAt: DateTime!
+  user: User!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type User {
+  id: String!
+  email: String!
+  name: String!
+  age: Int!
+  parchase: Parchase!
+  board: Board!
+}
+
+type Board {
+  id: String!
+  title: String!
+  content: String!
+  date: String!
+  user: User!
+  category: Category!
+}
+
+type Transaction {
+  id: String!
+  impUid: String!
+  amount: Int!
+  status: TRANSACTION_STATUS_ENUM!
+  user: User!
+  createdAt: DateTime!
+}
+
+enum TRANSACTION_STATUS_ENUM {
+  PAYMENT
+  CANCEL
+}
+
+type Query {
+  fetchProducts: [Product!]!
+  fetchProduct(productId: String!): Product!
+  fetchBoards: [Board!]!
+  fetchBoard(boardId: String!): Board!
+  fetchUsers: [User!]!
+  fetchUser: String!
+}
+
+type Mutation {
+  createProduct(createProductInput: CreateProductInput!): Product!
+  updateProduct(productId: String!, updateProductInput: UpdateProductInput!): Product!
+  deleteProduct(productId: String!): Boolean!
+  restoreOne(productId: String!): Boolean!
+  createBoard(createBoardInput: CreateBoardInput!): Board!
+  updateBoard(boardId: String!, updateBoardInput: UpdateBoardInput!): Board!
+  createRank(name: String!): Ranking!
+  createUser(email: String!, password: String!, name: String!, age: Float!): User!
+  deleteUser: Boolean!
+  updateUser(password: String!): User!
+  login(email: String!, password: String!): String!
+  restoreAccessToken: String!
+  createTransaction(impUid: String!, amount: Float!): Transaction!
+  cancelTransaction(impUid: String!): Transaction!
+}
+
+input CreateProductInput {
+  name: String!
+  price: Int!
+  rank: Int!
+  productImage: ProductImageInput!
+  rankId: String!
+  productInfo: [String!]!
+}
+
+input ProductImageInput {
+  src: String!
+}
+
+input UpdateProductInput {
+  name: String
+  price: Int
+  rank: Int
+  productImage: ProductImageInput
+  rankId: String
+  productInfo: [String!]
+}
+
+input CreateBoardInput {
+  title: String!
+  content: String!
+  date: DateTime!
+}
+
+input UpdateBoardInput {
+  title: String
+  content: String
+  date: DateTime
+}
