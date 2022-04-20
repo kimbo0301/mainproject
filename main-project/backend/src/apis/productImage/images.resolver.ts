@@ -1,4 +1,5 @@
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
+import { type } from 'os';
 import { ProductImage } from './entities/productImage.entity';
 import { ImagesService } from './images.service';
 
@@ -15,7 +16,7 @@ export class ImagesResolver {
     createImages(
         @Args('productid')
         productid: string, //
-        @Args('src') src: string,
+        @Args('src') src: string[],
     ) {
         return this.ImagesService.create({ productid, src });
     }

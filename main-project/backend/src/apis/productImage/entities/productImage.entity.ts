@@ -10,7 +10,7 @@ export class ProductImage {
 
     @Column()
     @Field(() => String)
-    src: string;
+    src: string[];
 
     @ManyToOne(() => Product)
     @Field(() => Product)

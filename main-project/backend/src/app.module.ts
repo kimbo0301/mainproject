@@ -28,11 +28,11 @@ import { ImagesModule } from './apis/productImage/images.module';
         }),
         TypeOrmModule.forRoot({
             type: 'mysql',
-            host: 'my-database',
+            host: 'localhost', //my-database
             port: 3306,
             username: 'root',
             password: '0000',
-            database: 'mydocker02',
+            database: 'mainproject', // mainproject // mydocker02
             entities: [__dirname + '/apis/**'],
             //시작 위치에 가서 apis로 가고 ** 폴더안의 폴더 모든 곳 샅샅이 뒤짐
             // entity포함된 파일 전부 뒤짐
