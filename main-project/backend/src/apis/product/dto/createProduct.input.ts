@@ -1,5 +1,5 @@
 import { Field, InputType, Int } from '@nestjs/graphql';
-import { ProductImageInput } from 'src/apis/productImage/dto/productImage.input';
+import { ProductImage } from 'src/apis/productImage/entities/productImage.entity';
 
 @InputType()
 export class CreateProductInput {
@@ -11,9 +11,6 @@ export class CreateProductInput {
 
     @Field(() => Int)
     rank: number;
-
-    @Field(() => ProductImageInput)
-    productImage: ProductImageInput;
 
     @Field(() => String)
     rankId: string;

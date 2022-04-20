@@ -8,6 +8,8 @@ import { RankModule } from './apis/ranking/ranking.module';
 import { UserModule } from './apis/user/user.module';
 import { AuthModule } from './apis/auth/auth.module';
 import { TransactionModule } from './apis/Transaction/Transaction.module';
+import { FileModule } from './apis/file/file.module';
+import { ImagesModule } from './apis/productImage/images.module';
 
 @Module({
     imports: [
@@ -16,6 +18,8 @@ import { TransactionModule } from './apis/Transaction/Transaction.module';
         RankModule,
         UserModule,
         AuthModule,
+        FileModule,
+        ImagesModule,
         TransactionModule,
         GraphQLModule.forRoot<ApolloDriverConfig>({
             driver: ApolloDriver,

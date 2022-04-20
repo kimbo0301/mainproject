@@ -2,14 +2,15 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type ProductImage {
-  id: String!
-  src: String!
-}
-
 type Ranking {
   id: String!
   subject: String!
+}
+
+type ProductInfo {
+  id: String!
+  name: String!
+  product: [Product!]!
 }
 
 type Product {
@@ -22,10 +23,10 @@ type Product {
   ranking: Ranking!
 }
 
-type ProductInfo {
+type ProductImage {
   id: String!
-  name: String!
-  product: [Product!]!
+  src: String!
+  product: Product!
 }
 
 type Category {
@@ -100,6 +101,10 @@ type Mutation {
   updateUser(password: String!): User!
   login(email: String!, password: String!): String!
   restoreAccessToken: String!
+  uploadFile(files: [Upload!]!): [String!]!
+  findimages(productid: String!): ProductImage!
+  createImages(productid: String!, src: String!): ProductImage!
+  update(productid: String!, src: String!): ProductImage!
   createTransaction(impUid: String!, amount: Float!): Transaction!
   cancelTransaction(impUid: String!): Transaction!
 }
@@ -108,20 +113,14 @@ input CreateProductInput {
   name: String!
   price: Int!
   rank: Int!
-  productImage: ProductImageInput!
   rankId: String!
   productInfo: [String!]!
-}
-
-input ProductImageInput {
-  src: String!
 }
 
 input UpdateProductInput {
   name: String
   price: Int
   rank: Int
-  productImage: ProductImageInput
   rankId: String
   productInfo: [String!]
 }
@@ -137,3 +136,6 @@ input UpdateBoardInput {
   content: String
   date: DateTime
 }
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload

@@ -4,8 +4,6 @@ import {
     Entity,
     PrimaryGeneratedColumn,
     ManyToOne,
-    OneToOne,
-    JoinColumn,
     DeleteDateColumn,
     JoinTable,
 } from 'typeorm';
@@ -41,9 +39,7 @@ export class Product {
     @Field(() => [ProductInfo])
     productInfo: ProductInfo[];
 
-    @JoinColumn()
     @Field(() => ProductImage)
-    @OneToOne(() => ProductImage)
     productimage: ProductImage;
 
     @Field(() => Ranking)

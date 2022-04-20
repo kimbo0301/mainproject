@@ -22,7 +22,7 @@ export class ProductService {
     ) {}
     async findAll() {
         const products = await this.productRepository.find({
-            relations: ['productimage', 'ranking', 'productInfo'],
+            relations: ['ranking', 'productInfo'],
             withDeleted: true,
         });
         return products;
@@ -38,12 +38,7 @@ export class ProductService {
     }
 
     async create({ createProductInput }) {
-        const { productInfo, rankId, productImage, ...product } =
-            createProductInput;
-
-        const result1 = await this.productImageRepository.save({
-            ...productImage,
-        });
+        const { productInfo, rankId, ...product } = createProductInput;
 
         const result2 = [];
 
@@ -64,7 +59,6 @@ export class ProductService {
 
         return await this.productRepository.save({
             ...product,
-            productimage: result1,
             ranking: { id: rankId },
             productInfo: result2,
         });
