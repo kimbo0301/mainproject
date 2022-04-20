@@ -9,8 +9,8 @@ export class ProductImage {
     id: string;
 
     @Column()
-    @Field(() => String)
-    src: string[];
+    @Field(() => [String])
+    src: string;
 
     @ManyToOne(() => Product)
     @Field(() => Product)

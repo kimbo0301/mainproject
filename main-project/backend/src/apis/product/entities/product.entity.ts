@@ -39,9 +39,6 @@ export class Product {
     @Field(() => [ProductInfo])
     productInfo: ProductInfo[];
 
-    @Field(() => ProductImage)
-    productimage: ProductImage;
-
     @Field(() => Ranking)
     @ManyToOne(() => Ranking)
     ranking: Ranking;

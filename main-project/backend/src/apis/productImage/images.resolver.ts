@@ -16,17 +16,16 @@ export class ImagesResolver {
     createImages(
         @Args('productid')
         productid: string, //
-        @Args('src') src: string[],
+        @Args({ name: 'src', type: () => [String] }) src: string[],
     ) {
         return this.ImagesService.create({ productid, src });
     }
 
-    @Mutation(() => ProductImage)
+    @Mutation(() => Boolean)
     update(
         @Args('productid')
         productid: string,
-        @Args('src')
-        src: string, //
+        @Args({ name: 'src', type: () => [String] }) src: string[],
     ) {
         return this.ImagesService.update({ productid, src });
     }

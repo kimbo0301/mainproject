@@ -13,12 +13,14 @@ export class ImagesService {
 
     async create({ productid, src }) {
         // 카테고리를 데이터베이스에 저장
-        const result = await this.ProductImagesRepository.save({
-            product: productid,
-            src,
-        });
-        console.log(result);
-        return result;
+        for (let i = 0; i < src.length; i++) {
+            const result = await this.ProductImagesRepository.save({
+                product: productid,
+                src: src[i],
+            });
+            console.log(result);
+            return result;
+        }
     }
 
     async findOne({ productid }) {
@@ -29,12 +31,20 @@ export class ImagesService {
 
     async update({ productid, src }) {
         await this.ProductImagesRepository.delete({
-            product: productid,
+            product: {
+                id: productid,
+            },
         });
-        const result = await this.ProductImagesRepository.save({
-            product: productid,
-            src,
-        });
-        return result;
+
+        for (let i = 0; i < src.length; i++) {
+            await this.ProductImagesRepository.save({
+                product: {
+                    id: productid,
+                },
+                src: src[i],
+            });
+        }
+
+        return true;
     }
 }

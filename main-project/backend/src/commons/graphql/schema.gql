@@ -19,13 +19,12 @@ type Product {
   rank: Float!
   price: Int!
   productInfo: [ProductInfo!]!
-  productimage: ProductImage!
   ranking: Ranking!
 }
 
 type ProductImage {
   id: String!
-  src: String!
+  src: [String!]!
   product: Product!
 }
 
@@ -103,8 +102,8 @@ type Mutation {
   restoreAccessToken: String!
   uploadFile(files: [Upload!]!): [String!]!
   findimages(productid: String!): ProductImage!
-  createImages(productid: String!, src: String!): ProductImage!
-  update(productid: String!, src: String!): ProductImage!
+  createImages(productid: String!, src: [String!]!): ProductImage!
+  update(productid: String!, src: [String!]!): Boolean!
   createTransaction(impUid: String!, amount: Float!): Transaction!
   cancelTransaction(impUid: String!): Transaction!
 }
