@@ -12,7 +12,6 @@ export class FileResolver {
         @Args({ name: 'files', type: () => [GraphQLUpload] })
         files: FileUpload[],
     ) {
-        console.log(files); // 파일 들어오니?
         return this.fileService.upload({ files });
     }
 }

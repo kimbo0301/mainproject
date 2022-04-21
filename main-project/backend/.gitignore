@@ -2,6 +2,7 @@
 /dist
 /node_modules
 .env
+extreme-zephyr-347902-1a4eec97919c.json
 # Logs
 logs
 *.log

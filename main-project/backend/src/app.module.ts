@@ -10,7 +10,7 @@ import { AuthModule } from './apis/auth/auth.module';
 import { TransactionModule } from './apis/Transaction/Transaction.module';
 import { FileModule } from './apis/file/file.module';
 import { ImagesModule } from './apis/productImage/images.module';
-
+import { ConfigModule } from '@nestjs/config';
 @Module({
     imports: [
         ProductModule,
@@ -39,6 +39,10 @@ import { ImagesModule } from './apis/productImage/images.module';
             synchronize: true,
             logging: true,
             retryAttempts: 20,
+        }),
+
+        ConfigModule.forRoot({
+            isGlobal: true,
         }),
     ],
     // controllers: [AppController],
