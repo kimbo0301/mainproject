@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { CacheModule, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
@@ -10,7 +10,8 @@ import { AuthModule } from './apis/auth/auth.module';
 import { TransactionModule } from './apis/Transaction/Transaction.module';
 import { FileModule } from './apis/file/file.module';
 import { ImagesModule } from './apis/productImage/images.module';
-import { ConfigModule } from '@nestjs/config';
+import type { RedisClientOptions } from 'redis';
+import * as redisStore from 'cache-manager-redis-store';
 @Module({
     imports: [
         ProductModule,
@@ -41,8 +42,10 @@ import { ConfigModule } from '@nestjs/config';
             retryAttempts: 20,
         }),
 
-        ConfigModule.forRoot({
-            isGlobal: true,
+        CacheModule.register<RedisClientOptions>({
+            store: redisStore, // 이라이브러리를 통해 저장
+            url: 'redis://my-redis:6379', //redis의 주소 ip 필요 없음 네임리졸루션 도커
+            isGlobal: true, // 모든 api에서 사용 가능하게끔 만들어줌
         }),
     ],
     // controllers: [AppController],

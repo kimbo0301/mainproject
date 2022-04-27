@@ -10,6 +10,7 @@ import { User } from './entities/user.entity';
 export class UserResolver {
     constructor(private readonly userService: UserService) {}
 
+    @UseGuards(GqlAuthAccessGuard)
     @Query(() => [User])
     fetchUsers() {
         return this.userService.findAll();
@@ -18,11 +19,11 @@ export class UserResolver {
     @UseGuards(GqlAuthAccessGuard)
     @Query(() => String)
     fetchUser(
+        @Args('email') email: string,
         @CurrentUser()
         currentUser: any,
     ) {
-        console.log(currentUser);
-        console.log('fetchuser 실행 완료');
+        return this.userService.findOne({ email: currentUser.email });
     }
 
     @Mutation(() => User)

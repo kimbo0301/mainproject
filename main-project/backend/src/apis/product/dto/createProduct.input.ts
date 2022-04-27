@@ -15,6 +15,9 @@ export class CreateProductInput {
     @Field(() => String)
     rankId: string;
 
+    @Field(() => String)
+    description: string;
+
     @Field(() => [String])
     productInfo: string[];
 }

@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ElasticsearchModule } from '@nestjs/elasticsearch';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductImage } from '../productImage/entities/productImage.entity';
 import { ProductInfo } from '../Product_info/entities/productInfo.entitiy';
@@ -16,6 +17,9 @@ import { ProductService } from './product.service';
             Ranking, //
             ProductInfo, //
         ]),
+        ElasticsearchModule.register({
+            node: 'http://elasticsearch:9200',
+        }),
     ],
     providers: [
         // 의존성 주입을 해야함

@@ -6,6 +6,7 @@ import {
     ManyToOne,
     DeleteDateColumn,
     JoinTable,
+    UpdateDateColumn,
 } from 'typeorm';
 import { Ranking } from 'src/apis/ranking/entities/ranking.entity';
 import { ProductImage } from 'src/apis/productImage/entities/productImage.entity';
@@ -31,6 +32,10 @@ export class Product {
     @Field(() => Int)
     price: number;
 
+    @Column()
+    @Field(() => String)
+    description: string;
+
     @Column({ default: 0 })
     score: number;
 
@@ -39,10 +44,12 @@ export class Product {
     @Field(() => [ProductInfo])
     productInfo: ProductInfo[];
 
-    @Field(() => Ranking)
     @ManyToOne(() => Ranking)
     ranking: Ranking;
 
     @DeleteDateColumn()
     deletedAt?: Date;
+
+    @UpdateDateColumn()
+    updatedat: Date;
 }

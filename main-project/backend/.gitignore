@@ -3,6 +3,8 @@
 /node_modules
 .env
 extreme-zephyr-347902-1a4eec97919c.json
+logstash.conf
+mysql-connector-java-8.0.28.jar
 # Logs
 logs
 *.log

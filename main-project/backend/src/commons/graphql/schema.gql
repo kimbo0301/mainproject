@@ -18,8 +18,8 @@ type Product {
   name: String!
   rank: Float!
   price: Int!
+  description: String!
   productInfo: [ProductInfo!]!
-  ranking: Ranking!
 }
 
 type ProductImage {
@@ -79,12 +79,12 @@ enum TRANSACTION_STATUS_ENUM {
 }
 
 type Query {
-  fetchProducts: [Product!]!
+  fetchProducts(search: String!): [Product!]!
   fetchProduct(productId: String!): Product!
   fetchBoards: [Board!]!
   fetchBoard(boardId: String!): Board!
   fetchUsers: [User!]!
-  fetchUser: String!
+  fetchUser(email: String!): String!
 }
 
 type Mutation {
@@ -99,6 +99,7 @@ type Mutation {
   deleteUser: Boolean!
   updateUser(password: String!): User!
   login(email: String!, password: String!): String!
+  logout: String!
   restoreAccessToken: String!
   uploadFile(files: [Upload!]!): [String!]!
   findimages(productid: String!): ProductImage!
@@ -113,6 +114,7 @@ input CreateProductInput {
   price: Int!
   rank: Int!
   rankId: String!
+  description: String!
   productInfo: [String!]!
 }
 
@@ -121,6 +123,7 @@ input UpdateProductInput {
   price: Int
   rank: Int
   rankId: String
+  description: String
   productInfo: [String!]
 }
 

@@ -14,7 +14,9 @@ export class UserService {
     }
 
     async findOne({ email }) {
-        return await this.userRepository.findOne({ where: { email } });
+        return await this.userRepository.findOne({
+            where: { email },
+        });
     }
 
     async create({ email, hashedPassword: password, name, age }) {

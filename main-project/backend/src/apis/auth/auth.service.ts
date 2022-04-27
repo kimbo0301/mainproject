@@ -10,7 +10,7 @@ export class AuthService {
             { secret: 'myRefreshKey', expiresIn: '2w' },
         );
 
-        res.setHeader('Set-Cookie', `refreshToken = ${refreshToken} path=/`);
+        res.setHeader('Set-Cookie', `refreshToken=${refreshToken}; path=/;`);
     }
 
     getAccessToken({ user }) {

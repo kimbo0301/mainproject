@@ -3,14 +3,42 @@ import { CreateProductInput } from './dto/createProduct.input';
 import { Product } from './entities/product.entity';
 import { UpdateProductInput } from './dto/updateProduct.input';
 import { ProductService } from './product.service';
+import { Cache } from 'cache-manager';
+import { CACHE_MANAGER, Inject } from '@nestjs/common';
+import { ElasticsearchService } from '@nestjs/elasticsearch';
+
 @Resolver()
 export class ProductResolver {
     //데이터 주입 받기
-    constructor(private readonly productService: ProductService) {}
+    constructor(
+        private readonly productService: ProductService,
+        @Inject(CACHE_MANAGER)
+        private readonly cacheManager: Cache, //
+        private readonly elasticsearchService: ElasticsearchService,
+    ) {}
 
     @Query(() => [Product])
-    fetchProducts() {
-        return this.productService.findAll();
+    async fetchProducts(@Args('search') search: string) {
+        const product = await this.cacheManager.get(search);
+        if (product) {
+            return product;
+        } else {
+            const result = await this.elasticsearchService.search({
+                index: 'product',
+                query: {
+                    bool: {
+                      should:[{ prefix: { name: search } }]
+                    }
+                  }
+            });
+
+            const arr = result['hits']['hits'].map(async (el) => {
+                return el._source;
+            });
+
+            await this.cacheManager.set(search, arr, { ttl: 230000 });
+            return arr;
+        }
     }
 
     @Query(() => Product)
